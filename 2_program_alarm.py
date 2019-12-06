@@ -80,10 +80,28 @@ def test_process_multiplication():
 
 
 # Exec
-def find_answer():
+def find_part_1_answer():
     mutated_input = INPUT.copy()
     mutated_input[1] = 12
     mutated_input[2] = 2
     return intcode(mutated_input)[0]
 
-print(find_answer())
+print(find_part_1_answer())  # -> 2894520
+
+
+def generate_pairs(n):
+    for i in range(n):
+        for j in range(n):
+            yield i, j
+
+
+def find_specific_operation():
+    for noun, verb in generate_pairs(100):
+        mutated_input = INPUT.copy()
+        mutated_input[1] = noun
+        mutated_input[2] = verb
+        if intcode(mutated_input)[0] == 19690720:
+            return 100 * noun + verb
+
+
+print(find_specific_operation())
